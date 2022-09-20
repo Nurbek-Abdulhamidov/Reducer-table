@@ -1,31 +1,16 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useReducer } from "react";
+import { nurbekReducer } from "./reducer";
 
 export const ContextInfo = createContext();
 
 const Context = ({ children }) => {
-  const [count, setCount] = useState(0);
-  const [name, setName] = useState("");
+  const [state, dispatch] = useReducer(nurbekReducer, {
+    count: 0,
+    name: "",
+  });
 
-  // Funksiyalar
-  const AddOne = () => {
-    setCount(count + 1);
-  };
-
-  const AddFive = () => {
-    setCount(count + 5);
-  };
-
-  const ChangeTitle = (e) => {
-    setName(e);
-  };
-
-  const AddNum = () => {
-    setCount(+name + count);
-  };
   return (
-    <ContextInfo.Provider
-      value={{ count, setCount, AddFive, AddOne, ChangeTitle, name, AddNum }}
-    >
+    <ContextInfo.Provider value={[state, dispatch]}>
       {children}
     </ContextInfo.Provider>
   );

@@ -2,20 +2,18 @@ import React, { useContext } from "react";
 import { ContextInfo } from "./Context";
 
 const Child = () => {
-  const { AddFive, AddOne, ChangeTitle, AddNum } = useContext(ContextInfo);
-
+  const [state, dispatch] = useContext(ContextInfo);
   return (
     <div>
-      <button onClick={AddOne}>AddOne</button>
-      <button onClick={AddFive}>AddFive</button>
+      <button onClick={() => dispatch({ type: "AddOne" })}>AddNum</button>
       <br />
-      <hr />
       <input
-        onChange={(e) => ChangeTitle(e.target.value)}
-        type="number"
-        placeholder="write number"
+        type="text"
+        onChange={(e) =>
+          dispatch({ type: "addAmount", payload: { name: e.target.value } })
+        }
       />
-      <button onClick={AddNum}>AddNum</button>
+      <button onClick={() => dispatch({ type: "AddNumber" })}>Add</button>
     </div>
   );
 };
